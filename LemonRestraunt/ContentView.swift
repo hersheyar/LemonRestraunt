@@ -21,12 +21,21 @@ struct ContentView: View {
                 
                 Text("Hello to the new class!")
                     .font(.largeTitle)
-                    .foregroundColor(.mint)
+                    .foregroundColor(.black)
+                    .padding(.bottom, 20)
                 
-                NavigationLink(destination:
-                    AboutView()) {
-                    Text("Go to About")
-                    
+                NavigationLink(destination:AboutView()) {
+                    HStack{
+                        Text("Learn More!")
+                        Image(systemName: "arrow.right.circle")
+                    }
+                        .font(.system(size:20 , weight: .bold))
+                        .underline()
+                        .padding(.bottom)
+                }
+                NavigationLink(destination: ReservationForm()) {
+                    Label("Make a Reservation", systemImage: "calendar")
+                        .font(.system(size: 18, weight: .bold))
                 }
             }
             .padding()
