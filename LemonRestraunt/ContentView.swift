@@ -39,7 +39,7 @@ struct ContentView: View {
                 }
             }
             .padding()
-            .navigationTitle("Home")
+            .navigationTitle("Welcome")
         }
     }
 }

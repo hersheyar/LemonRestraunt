@@ -43,6 +43,14 @@ var body: some View {
                     orders += 1
                 }
                 .buttonStyle(.borderedProminent)
+                
+                TextField("Enter your name", text: $userName)
+                    .textFieldStyle(.roundedBorder)
+                    .padding(8)
+                    .background(.ultraThinMaterial)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.4)))
+                    .padding(.horizontal)
+                    .padding(.bottom, 30)
 
                 Button("Reset Orders") {
                     orders = 0
