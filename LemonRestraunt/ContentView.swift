@@ -24,7 +24,7 @@ struct ContentView: View {
                     .foregroundColor(.black)
                     .padding(.bottom, 20)
                 
-                NavigationLink(destination:AboutView()) {
+                NavigationLink(destination:MainView()) {
                     HStack{
                         Text("Learn More!")
                         Image(systemName: "arrow.right.circle")

@@ -23,7 +23,9 @@ struct LoginView: View {
                 .padding(.horizontal)
 
             Button("Log In") {
-                isLoggedIn = true
+                if userName == "Andrew"{
+                    isLoggedIn = true
+                }
             }
             .font(.headline)
             .buttonStyle(.borderedProminent)

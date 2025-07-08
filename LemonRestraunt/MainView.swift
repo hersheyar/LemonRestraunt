@@ -33,7 +33,6 @@ struct MainView: View {
                         NavigationLink(destination: ReservationForm()) {
                             Label("Make a Reservation", systemImage: "calendar")
                                 .font(.system(size: 18, weight: .bold))
-                                .padding(.bottom)
                         }
                         Button("Logout"){
                             isLoggedIn = false

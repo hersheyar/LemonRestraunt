@@ -16,7 +16,7 @@ import SwiftUI
 
 struct AboutView: View {
 @State private var orders = 99
-@State private var userName = ""
+@State var userName = ""
 @State private var reservationSize = 0
 
 var reservationIcons: String {
@@ -43,6 +43,7 @@ var body: some View {
                     orders += 1
                 }
                 .buttonStyle(.borderedProminent)
+                .padding(.bottom)
                 
                 TextField("Enter your name", text: $userName)
                     .textFieldStyle(.roundedBorder)
@@ -57,13 +58,6 @@ var body: some View {
                 }
                 .buttonStyle(.borderedProminent)
                 .padding(.bottom)
-
-                TextField("Enter your name", text: $userName)
-                    .textFieldStyle(.roundedBorder)
-                    .padding(8)
-                    .background(.ultraThinMaterial)
-                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray.opacity(0.4)))
-                    .padding(.horizontal)
 
                 Text("Hi \(userName), your party has \(reservationSize) guest\(reservationSize == 1 ? "" : "s") today!")
                     .font(.caption)
