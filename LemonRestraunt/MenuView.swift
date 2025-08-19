@@ -10,17 +10,24 @@ import SwiftUI
 struct MenuView: View {
     @State private var showMessage = false
     @State private var showThankYou = false
+    @State private var showDesserts = false
 
-    let menuItems: [String: Double] = [
-        "Carbonara": 12.5,
-        "Chicken Picatta": 9.99,
-        "Cesar Salad": 7.5,
-        "Eggplant Parmesan": 11.99,
-        "Lobster Thermidor": 24.99,
-        "Parmesan Crusted Salmon": 19.99,
-        "Vegetarian Lasagna": 14.99,
-        "Chocolate Cake": 5.75
+    let menuItems: [MenuItem] = [
+        MenuItem(name: "Carbonara", description: "Creamy pasta with pancetta", price: 12.5),
+        MenuItem(name: "Chicken Picatta", description: "Lemon butter chicken", price: 9.99),
+        MenuItem(name: "Cesar Salad", description: "Fresh romaine with dressing", price: 5.5),
+        MenuItem(name: "Eggplant Parmesan", description: "Baked eggplant with marinara", price: 11.99),
+        MenuItem(name: "Lobster Thermidor", description: "Lobster in cream sauce", price: 24.99),
+        MenuItem(name: "Parmesan Crusted Salmon", description: "Salmon with parmesan crust", price: 19.99),
+        MenuItem(name: "Vegetarian Lasagna", description: "Layers of veggies & cheese", price: 14.99),
+        MenuItem(name: "Lasagna", description: "Cheesy baked pasta with meat sauce", price: 13.99),
+        MenuItem(name: "Tacos", description: "3 soft tacos with your choice of meat", price: 10.50),
+        MenuItem(name: "Ramen", description: "Spicy pork ramen with egg and greens", price: 14.25)
     ]
+
+    var sortedMenuItems: [MenuItem] {
+        menuItems.sorted { $0.name < $1.name }
+    }
 
     var body: some View {
         VStack {
@@ -52,7 +59,15 @@ struct MenuView: View {
                         .foregroundColor(.blue)
                 }
 
-                // Count Box
+                Button("View Desserts") {
+                    showDesserts.toggle()
+                }
+                .font(.headline)
+                .foregroundColor(.white)
+                .padding()
+                .background(Color.green)
+                .cornerRadius(8)
+
                 ZStack {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.1))
@@ -66,45 +81,13 @@ struct MenuView: View {
             .padding(.bottom)
 
             List {
-                ForEach(menuItems.sorted(by: { $0.key < $1.key }), id: \.key) { name, price in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(name)
-                                .font(.headline)
-                            Text(String(format: "$%.2f", price))
-                                .foregroundColor(.gray)
-                        }
-                        Spacer()
-
-                        if price > 15 {
-                            HStack {
-                                Image(systemName: "star.fill")
-                                    .foregroundColor(.yellow)
-                                Text("Premium")
-                                    .font(.caption)
-                                    .foregroundColor(.red)
-                            }
-                            .font(.caption)
-                            .foregroundColor(.orange)
-                            .padding(6)
-                            .background(Color.orange.opacity(0.2))
-                            .cornerRadius(8)
-                        } else if price < 7 {
-                            HStack {
-                                Image(systemName: "tag.fill")
-                                    .foregroundColor(.green)
-                                Text("Value")
-                                    .font(.caption)
-                                    .foregroundColor(.green)
-                            }
-                            .font(.caption)
-                            .padding(6)
-                            .background(Color.green.opacity(0.2))
-                            .cornerRadius(8)
-                        }
-                    }
+                ForEach(sortedMenuItems) { item in
+                    MenuItemView(item: item)
                 }
             }
+        }
+        .sheet(isPresented: $showDesserts) {
+            DessertView()
         }
     }
 }
@@ -112,4 +95,3 @@ struct MenuView: View {
 #Preview {
     MenuView()
 }
-

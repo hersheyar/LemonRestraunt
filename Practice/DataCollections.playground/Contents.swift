@@ -15,16 +15,19 @@ print(orders.count)
 
 let desserts = ["Bannana Pudding", "Cheesecake", "Ice Cream", "Tiramisu"]
 
-print(desserts[2])
+print(desserts.count)
 
 
 let menuPrices: [String: Double] = [
-    "Pizza": 12.99,
-    "Pasta": 11.99,
+    "Pizza": 12.996,
+    "Pasta": 11.998,
     "Salad": 9.99
 ]
 
 print(menuPrices["Pizza"]!)
+
+let total = menuPrices["Pizza"]! + menuPrices["Pasta"]!
+print(String(format:"%.2f", total))
 
 
 
@@ -76,3 +79,32 @@ for price in prices {
 }
 
 print(count)
+
+
+prices.forEach { price in
+    print(price)
+}
+
+
+
+let calories = [0, 150, 80]
+
+calories.forEach { calorie in
+    if calorie > 100{
+        print("High Calorie ammout! \(calorie) Calories")
+    }
+    
+}
+
+
+
+
+var stock:[String: Int] = [
+    "Burger": 5,
+    "Soup": 3
+]
+print(stock)
+stock["Soup"] = 4
+print(stock)
+
+

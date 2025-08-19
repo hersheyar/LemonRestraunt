@@ -19,7 +19,7 @@ struct Validation {
         return guest > 0
     }
     
-    static func guestCoutMessage(_ guest: Int) -> String{
+    static func guestCountMessage(_ guest: Int) -> String{
         if guest > 8 {
             return "For parties larger than 8, we will call to confirm"
         }else if guest >= 5 {

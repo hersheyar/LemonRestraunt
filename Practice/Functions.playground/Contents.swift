@@ -32,6 +32,7 @@ let message = deliveryTime(minutes: 10)
 print(message)
 
 
+
 func total(price: Double, tax: Double) -> String {
     let taxAmount = price * tax / 100
     let totalPrice = price + taxAmount
@@ -40,6 +41,16 @@ func total(price: Double, tax: Double) -> String {
 
 let cost = total(price: 100, tax: 7)
 print(cost)
+
+func applyDiscount(price: Double, discount: Double) -> Double {
+    let finalPrice = max(0, price)
+    let pct = min(max(0, discount), 100)
+    return finalPrice * (1 - pct / 100)
+}
+
+
+let discounted = applyDiscount(price: 100, discount: 15) // 85.0
+print(String(format: "Discounted: $%.2f", discounted))
 
 
 

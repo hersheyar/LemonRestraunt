@@ -27,7 +27,7 @@ struct ReservationForm: View {
 
                     Stepper("Guests: \(guestCount)", value: $guestCount, in: 1...10)
 
-                    let guestMessage = Validation.guestCoutMessage(guestCount)
+                    let guestMessage = Validation.guestCountMessage(guestCount)
                     if !guestMessage.isEmpty {
                         Text(guestMessage)
                             .foregroundColor(.red)
