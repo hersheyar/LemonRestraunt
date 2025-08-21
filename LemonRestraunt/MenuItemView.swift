@@ -22,7 +22,7 @@ struct MenuItemView: View {
             }
             Spacer()
 
-            if item.price > 15 {
+            if item.price >= 10 {
                 ValueBadgeView(type: .premium)
             } else if item.price < 7 {
                 ValueBadgeView(type: .value)

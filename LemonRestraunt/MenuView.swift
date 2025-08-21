@@ -11,6 +11,7 @@ struct MenuView: View {
     @State private var showMessage = false
     @State private var showThankYou = false
     @State private var showDesserts = false
+    @State private var showPremiumOnly = false
 
     let menuItems: [MenuItem] = [
         MenuItem(name: "Carbonara", description: "Creamy pasta with pancetta", price: 12.5),
@@ -25,9 +26,21 @@ struct MenuView: View {
         MenuItem(name: "Ramen", description: "Spicy pork ramen with egg and greens", price: 14.25)
     ]
 
+    // Base sort by name
     var sortedMenuItems: [MenuItem] {
         menuItems.sorted { $0.name < $1.name }
     }
+
+    // Visible items respect the filter toggle
+    var visibleMenuItems: [MenuItem] {
+        let items = sortedMenuItems
+        return showPremiumOnly ? items.filter { $0.price >= 10 } : items
+    }
+
+    // Summary metrics for currently visible items
+    var premiumCount: Int { visibleMenuItems.filter { $0.price >= 10 }.count }
+    var regularCount: Int { visibleMenuItems.filter { $0.price < 10 }.count }
+    var totalVisiblePrice: Double { visibleMenuItems.reduce(0.0) { $0 + $1.price } }
 
     var body: some View {
         VStack {
@@ -45,6 +58,10 @@ struct MenuView: View {
                     .padding(.horizontal)
 
                 Toggle("Show Thank You Message", isOn: $showThankYou)
+                    .padding(.horizontal)
+
+                // Filter toggle driving the list + summary
+                Toggle("Show Premium Only", isOn: $showPremiumOnly)
                     .padding(.horizontal)
 
                 if showMessage {
@@ -72,7 +89,7 @@ struct MenuView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .fill(Color.gray.opacity(0.1))
                         .frame(height: 50)
-                    Text("Menu Items: \(menuItems.count)")
+                    Text("Menu Items (all): \(menuItems.count)")
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -80,11 +97,28 @@ struct MenuView: View {
             }
             .padding(.bottom)
 
+            // List with section header showing current visible count
             List {
-                ForEach(sortedMenuItems) { item in
-                    MenuItemView(item: item)
+                Section(header: Text("Showing \(visibleMenuItems.count) items")) {
+                    ForEach(visibleMenuItems) { item in
+                        MenuItemView(item: item)
+                    }
                 }
             }
+
+            // Summary below the list for currently visible items
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Summary")
+                    .font(.headline)
+                HStack(spacing: 16) {
+                    Text("Premium: \(premiumCount)")
+                    Text("Regular: \(regularCount)")
+                    Text("Total: \(String(format: "$%.2f", totalVisiblePrice))")
+                }
+                .font(.subheadline)
+                .foregroundColor(.secondary)
+            }
+            .padding([.horizontal, .bottom])
         }
         .sheet(isPresented: $showDesserts) {
             DessertView()
