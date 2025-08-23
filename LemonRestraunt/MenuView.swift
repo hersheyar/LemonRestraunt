@@ -52,6 +52,10 @@ struct MenuView: View {
                     .font(.title)
             }
             .padding()
+            
+            Text("Average price per item: \(String(format: "%.2f", totalVisiblePrice / Double(visibleMenuItems.count)))")
+                .foregroundColor(.gray)
+                .font(.title3)
 
             VStack(spacing: 20) {
                 Toggle("Show a special text", isOn: $showMessage)
